@@ -521,6 +521,8 @@ input, select, button { outline: none; }
   background-color: #1c1c24;
   padding: 15px;
   border-radius: 8px;
+  mix-blend-mode: multiply;
+  filter: contrast(1.05) brightness(1.02);
   transition: transform 0.3s ease;
 }
 .game-card:hover .game-card__cover img {
