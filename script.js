@@ -1,18 +1,13 @@
 'use strict';
 
 /* ============================================================
-   ПУЛ ФОНОВЫХ ИЗОБРАЖЕНИЙ
+   ПУТЬ К ОБЛОЖКАМ ИГР
+   Каждая обложка хранится в images/catalog/{id}.jpg
+   Если файл отсутствует — браузер подставит images/logo-placeholder.png
 ============================================================ */
-const IMG = [
-  'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=480&q=75',
-  'https://images.unsplash.com/photo-1606167668584-78701c57f13d?w=480&q=75',
-  'https://images.unsplash.com/photo-1566694271453-390536dd1f0d?w=480&q=75',
-  'https://images.unsplash.com/photo-1585504198199-20277593b94f?w=480&q=75',
-  'https://images.unsplash.com/photo-1553481187-be93c21490a9?w=480&q=75',
-  'https://images.unsplash.com/photo-1611195974226-a6a9be9dd763?w=480&q=75',
-  'https://images.unsplash.com/photo-1560438718-eb61ede255eb?w=480&q=75',
-  'https://images.unsplash.com/photo-1505028106030-e07ea1bd80c3?w=480&q=75',
-];
+function gameImgPath(id) {
+  return `images/catalog/${id}.jpg`;
+}
 
 /* ============================================================
    БАЗА ДАННЫХ ИГР
@@ -197,7 +192,7 @@ function getFilteredGames() {
 
 function buildGameCard(game, index) {
   const cat        = CATEGORIES[game.category] ?? { label: game.category.toUpperCase(), cls: '' };
-  const imgSrc     = IMG[(game.id - 1) % IMG.length];
+  const imgSrc     = gameImgPath(game.id);
   const ratingHtml = game.rating > 0
     ? `<span class="game-card__rating">⭐ ${game.rating.toFixed(1)}</span>` : '';
 
