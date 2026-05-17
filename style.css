@@ -423,6 +423,11 @@ input, select, button { outline: none; }
   line-height: 1;
   margin-bottom: 0.25rem;
 }
+.card__icon--gold {
+  /* color покрывает текстовый режим рендеринга, filter — эмодзи-режим */
+  color: var(--clr-amber);
+  filter: sepia(1) saturate(5) hue-rotate(5deg) brightness(1.1);
+}
 .card__title {
   font-size: 1.15rem;
   font-weight: 700;
