@@ -126,22 +126,33 @@
     ========================================================== -->
     <section class="calculator" id="prices" aria-labelledby="calc-heading">
       <div class="container">
-        <h2 class="section-title" id="calc-heading">Рассчитать стоимость аренды</h2>
+        <h2 class="section-title" id="calc-heading">Оформить бронь</h2>
         <p class="section-subtitle">
-          Выберите игру и&nbsp;количество дней, чтобы узнать точную цену.
+          Выберите услугу, заполните контакты — мы перезвоним для подтверждения.
         </p>
 
         <form class="calc__form" id="rental-calculator" novalidate>
 
+          <!-- ШАГ 1: Тип услуги -->
           <div class="form-group">
-            <label class="form-label" for="calc-game">Игра</label>
-            <select class="form-select" id="calc-game" name="game" required>
-              <option value="" disabled selected>— выберите игру —</option>
-              <!-- JS динамически добавит опции из массива игр -->
+            <label class="form-label" for="service-type">Что вас интересует?</label>
+            <select class="form-select" id="service-type" name="service-type">
+              <option value="rental">Аренда игры из каталога</option>
+              <option value="club_single">Разовое посещение клуба — 12 BYN</option>
+              <option value="club_monthly">Абонемент «Постоянный игрок» — 45 BYN</option>
             </select>
           </div>
 
-          <div class="form-group">
+          <!-- ШАГ 2: Игра — только для аренды -->
+          <div class="form-group" id="game-section">
+            <label class="form-label" for="calc-game">Игра</label>
+            <select class="form-select" id="calc-game" name="game">
+              <option value="" disabled selected>— выберите игру —</option>
+            </select>
+          </div>
+
+          <!-- ШАГ 3: Дни — только для аренды -->
+          <div class="form-group" id="days-section">
             <label class="form-label" for="calc-days">Количество дней аренды</label>
             <input
               class="form-input"
@@ -151,20 +162,18 @@
               min="1"
               max="30"
               value="1"
-              required
             />
           </div>
 
+          <!-- Имя и Телефон — инжектируются через script.js -->
+
           <button class="btn btn--primary" type="submit" id="calc-submit">
-            Рассчитать
+            Рассчитать и забронировать
           </button>
 
         </form>
 
-        <!-- Результат — показывается после расчёта -->
-        <output class="calc__result" id="calc-result" for="rental-calculator" hidden>
-          <!-- JS вставляет итоговую сумму сюда -->
-        </output>
+        <output class="calc__result" id="calc-result" for="rental-calculator" hidden></output>
 
       </div>
     </section>
@@ -194,7 +203,7 @@
               <li>Помощь игромастера</li>
               <li>Чай / кофе включён</li>
             </ul>
-            <a class="btn btn--outline" href="#contacts">Записаться</a>
+            <button class="btn btn--outline" type="button" data-plan="club_single">Записаться</button>
           </li>
 
           <li class="card card--pricing card--pricing--featured">
@@ -211,7 +220,7 @@
               <li>Чай / кофе включён</li>
               <li>Скидка&nbsp;10% на&nbsp;прокат игр</li>
             </ul>
-            <a class="btn btn--primary" href="#contacts">Оформить</a>
+            <button class="btn btn--primary" type="button" data-plan="club_monthly">Оформить</button>
           </li>
 
         </ul>
