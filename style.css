@@ -510,16 +510,18 @@ input, select, button { outline: none; }
 }
 
 .game-card__cover {
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  background-color: var(--clr-surface);
   position: relative;
+  background-color: #1c1c24;
+  overflow: hidden;
 }
 .game-card__cover img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.45s ease;
+  height: 240px;
+  object-fit: contain;
+  background-color: #1c1c24;
+  padding: 15px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
 }
 .game-card:hover .game-card__cover img {
   transform: scale(1.05);
