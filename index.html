@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dice & Meeples — аренда премиальных настольных игр и уютный клуб в Минске. Более 150+ мировых хитов с органайзерами и быстрой раскладкой." />
+  <title>Dice & Meeples — Клуб и Прокат Настольных Игр в Минске</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- =========================================================
+       HEADER — фиксированная навигация
+  ========================================================== -->
+  <header class="site-header" id="top">
+    <nav class="nav container" aria-label="Основная навигация">
+      <a class="nav__logo" href="#top">Dice &amp; Meeples</a>
+      <button class="nav__burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__links" id="nav-links" role="list">
+        <li><a href="#catalog">Каталог проката</a></li>
+        <li><a href="#club">Клубные встречи</a></li>
+        <li><a href="#prices">Стоимость</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- =========================================================
+         HERO SECTION — главный баннер
+    ========================================================== -->
+    <section class="hero" id="hero" aria-labelledby="hero-heading">
+      <div class="hero__inner container">
+        <h1 class="hero__title" id="hero-heading">
+          Аренда премиальных настольных игр<br />
+          и уютный клуб в&nbsp;Минске
+        </h1>
+        <p class="hero__subtitle">
+          Более&nbsp;150+ мировых хитов в&nbsp;идеальном состоянии и&nbsp;с&nbsp;быстрой
+          раскладкой благодаря премиум&#8209;органайзерам. Учим правилам за&nbsp;5&nbsp;минут!
+        </p>
+        <a class="btn btn--primary" href="#catalog">Открыть каталог</a>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         ADVANTAGES — блок преимуществ (3 карточки)
+    ========================================================== -->
+    <section class="advantages" id="advantages" aria-labelledby="advantages-heading">
+      <div class="container">
+        <h2 class="section-title" id="advantages-heading">Почему выбирают нас</h2>
+        <ul class="advantages__grid" role="list">
+
+          <li class="card card--advantage">
+            <div class="card__icon" aria-hidden="true">♟️</div>
+            <h3 class="card__title">Элитная коллекция</h3>
+            <p class="card__text">
+              От семейных абстрактов до топ-гиковских делюкс-изданий вроде
+              <em>Castles of Burgundy Special Edition</em>.
+            </p>
+          </li>
+
+          <li class="card card--advantage">
+            <div class="card__icon" aria-hidden="true">⚡</div>
+            <h3 class="card__title">Быстрый старт&nbsp;— наше УТП</h3>
+            <p class="card__text">
+              Наши игры укомплектованы органайзерами&nbsp;Gamefit и&nbsp;кастомными инлеями.
+              Никаких пакетиков&nbsp;— старт игры за&nbsp;5&nbsp;минут.
+            </p>
+          </li>
+
+          <li class="card card--advantage">
+            <div class="card__icon" aria-hidden="true">🎲</div>
+            <h3 class="card__title">Игротеки с&nbsp;мастером</h3>
+            <p class="card__text">
+              Собираемся каждые выходные. Вам не&nbsp;нужно читать правила&nbsp;—
+              игромастер всё покажет и&nbsp;расскажет.
+            </p>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CATALOG SECTION — каталог проката
+    ========================================================== -->
+    <section class="catalog" id="catalog" aria-labelledby="catalog-heading">
+      <div class="container">
+        <h2 class="section-title" id="catalog-heading">Каталог проката</h2>
+
+        <!-- Фильтры -->
+        <div class="catalog__filters" id="catalog-filters" role="group" aria-label="Фильтры каталога">
+          <button class="btn btn--filter btn--active" data-filter="all">Все игры</button>
+          <button class="btn btn--filter" data-filter="family">Семейные</button>
+          <button class="btn btn--filter" data-filter="strategy">Стратегии</button>
+          <button class="btn btn--filter" data-filter="party">Вечеринка</button>
+          <button class="btn btn--filter" data-filter="coop">Кооперативные</button>
+          <button class="btn btn--filter" data-filter="deluxe">Делюкс-издания</button>
+        </div>
+
+        <!-- Сетка карточек игр — наполняется через script.js -->
+        <ul class="catalog__grid" id="catalog-grid" role="list" aria-live="polite" aria-label="Список игр">
+          <!-- JS вставляет карточки сюда -->
+        </ul>
+
+        <p class="catalog__empty" id="catalog-empty" hidden>
+          Ничего не найдено. Попробуйте другой фильтр.
+        </p>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CALCULATOR SECTION — калькулятор стоимости аренды
+    ========================================================== -->
+    <section class="calculator" id="prices" aria-labelledby="calc-heading">
+      <div class="container">
+        <h2 class="section-title" id="calc-heading">Рассчитать стоимость аренды</h2>
+        <p class="section-subtitle">
+          Выберите игру и&nbsp;количество дней, чтобы узнать точную цену.
+        </p>
+
+        <form class="calc__form" id="rental-calculator" novalidate>
+
+          <div class="form-group">
+            <label class="form-label" for="calc-game">Игра</label>
+            <select class="form-select" id="calc-game" name="game" required>
+              <option value="" disabled selected>— выберите игру —</option>
+              <!-- JS динамически добавит опции из массива игр -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="calc-days">Количество дней аренды</label>
+            <input
+              class="form-input"
+              type="number"
+              id="calc-days"
+              name="days"
+              min="1"
+              max="30"
+              value="1"
+              required
+            />
+          </div>
+
+          <button class="btn btn--primary" type="submit" id="calc-submit">
+            Рассчитать
+          </button>
+
+        </form>
+
+        <!-- Результат — показывается после расчёта -->
+        <output class="calc__result" id="calc-result" for="rental-calculator" hidden>
+          <!-- JS вставляет итоговую сумму сюда -->
+        </output>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CLUB PRICE SECTION — тарифы клуба
+    ========================================================== -->
+    <section class="club-prices" id="club" aria-labelledby="club-heading">
+      <div class="container">
+        <h2 class="section-title" id="club-heading">Клубные встречи</h2>
+        <p class="section-subtitle">
+          Приходите сыграть прямо у&nbsp;нас — каждые выходные
+          с&nbsp;игромастером и&nbsp;отличной атмосферой.
+        </p>
+
+        <ul class="pricing__grid" role="list">
+
+          <li class="card card--pricing">
+            <h3 class="card__plan">Разовое посещение</h3>
+            <div class="card__price">
+              <span class="card__amount">12</span>
+              <span class="card__currency">BYN</span>
+            </div>
+            <ul class="card__features" role="list">
+              <li>Весь вечер в&nbsp;клубе</li>
+              <li>Доступ к&nbsp;любой игре из&nbsp;коллекции</li>
+              <li>Помощь игромастера</li>
+              <li>Чай / кофе включён</li>
+            </ul>
+            <a class="btn btn--outline" href="#contacts">Записаться</a>
+          </li>
+
+          <li class="card card--pricing card--pricing--featured">
+            <span class="card__badge">Выгодно</span>
+            <h3 class="card__plan">Месячный абонемент</h3>
+            <div class="card__price">
+              <span class="card__amount">45</span>
+              <span class="card__currency">BYN / мес</span>
+            </div>
+            <ul class="card__features" role="list">
+              <li>Неограниченные визиты в&nbsp;месяц</li>
+              <li>Доступ к&nbsp;любой игре из&nbsp;коллекции</li>
+              <li>Помощь игромастера</li>
+              <li>Чай / кофе включён</li>
+              <li>Скидка&nbsp;10% на&nbsp;прокат игр</li>
+            </ul>
+            <a class="btn btn--primary" href="#contacts">Оформить</a>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       CONTACTS & FOOTER
+  ========================================================== -->
+  <footer class="site-footer" id="contacts">
+    <div class="container footer__inner">
+
+      <div class="footer__col footer__col--brand">
+        <p class="footer__logo">Dice &amp; Meeples</p>
+        <p class="footer__tagline">Клуб и&nbsp;прокат настольных игр в&nbsp;Минске</p>
+      </div>
+
+      <address class="footer__col footer__col--contact" aria-label="Контактная информация">
+        <p>
+          <strong>Адрес:</strong><br />
+          г.&nbsp;Минск, ул.&nbsp;Примерная, д.&nbsp;1, офис&nbsp;101
+        </p>
+        <p>
+          <strong>Телефон:</strong><br />
+          <a href="tel:+375291234567">+375&nbsp;(29)&nbsp;123-45-67</a>
+        </p>
+        <p>
+          <strong>Email:</strong><br />
+          <a href="mailto:hello@diceandmeeples.by">hello@diceandmeeples.by</a>
+        </p>
+      </address>
+
+      <div class="footer__col footer__col--hours">
+        <strong>Время работы</strong>
+        <ul role="list">
+          <li>Пн–Пт: 16:00 – 22:00</li>
+          <li>Сб–Вс: 12:00 – 23:00</li>
+        </ul>
+      </div>
+
+      <div class="footer__col footer__col--social">
+        <strong>Мы в&nbsp;соцсетях</strong>
+        <ul class="social-links" role="list">
+          <li>
+            <a href="https://t.me/diceandmeeples" target="_blank" rel="noopener noreferrer"
+               aria-label="Telegram канал Dice &amp; Meeples">
+              Telegram
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/diceandmeeples" target="_blank" rel="noopener noreferrer"
+               aria-label="Instagram Dice &amp; Meeples">
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a href="https://vk.com/diceandmeeples" target="_blank" rel="noopener noreferrer"
+               aria-label="ВКонтакте Dice &amp; Meeples">
+              ВКонтакте
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; <span id="footer-year"></span> Dice &amp; Meeples. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
