@@ -1058,6 +1058,21 @@ input, select, button { outline: none; }
 /* ============================================================
    17. КАРТОЧКА ИГРЫ — дополнительные элементы
 ============================================================ */
+/* Рейтинг на карточке */
+.game-card__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.18rem 0.5rem;
+  background-color: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--clr-amber);
+  letter-spacing: 0.02em;
+}
+
 .game-card__organizer {
   font-size: 0.78rem;
   color: var(--clr-text-muted);
