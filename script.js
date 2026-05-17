@@ -164,6 +164,8 @@ const rentalForm     = document.getElementById('rental-calculator');
 ============================================================ */
 let activeFilter = 'all';
 let searchQuery  = '';
+let showAll      = false;      // false = показываем первые 12
+const INITIAL_LIMIT = 12;
 
 /* ============================================================
    ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
@@ -203,75 +205,118 @@ function getFilteredGames() {
   });
 }
 
+/** Строит один элемент <li> карточки игры */
+function buildGameCard(game, index) {
+  const cat        = CATEGORIES[game.category] ?? { label: game.category.toUpperCase(), cls: '' };
+  const imgSrc     = IMG[(game.id - 1) % IMG.length];
+  const ratingHtml = game.rating > 0
+    ? `<span class="game-card__rating" title="Личная оценка">⭐ ${game.rating.toFixed(1)}</span>`
+    : '';
+
+  const li = document.createElement('li');
+  li.className = 'game-card';
+  li.style.animationDelay = `${index * 0.06}s`;
+
+  li.innerHTML = `
+    <div class="game-card__cover">
+      <img
+        src="${imgSrc}"
+        alt="Обложка игры ${escapeHtml(game.name)}"
+        loading="lazy"
+        decoding="async"
+        onerror="this.onerror=null; this.src='images/logo-placeholder.png'"
+      />
+    </div>
+    <div class="game-card__body">
+      <div class="game-card__badges">
+        <span class="badge ${cat.cls}">${cat.label}</span>
+        ${ratingHtml}
+      </div>
+      <h3 class="game-card__name">${escapeHtml(game.name)}</h3>
+      <p class="game-card__meta">
+        <span>👥 ${game.players}</span>
+        <span>⏱ ${game.time}</span>
+      </p>
+      <p class="game-card__organizer">
+        ⚡ Игронайзер: <em>${escapeHtml(game.org)}</em>
+      </p>
+      <div class="game-card__price-row">
+        <div class="game-card__price">
+          ${game.price} BYN
+          <span>за сутки</span>
+        </div>
+        <button
+          class="btn btn--outline"
+          data-game-id="${game.id}"
+          data-action="book"
+          aria-label="Забронировать ${escapeHtml(game.name)}"
+        >
+          Забронировать
+        </button>
+      </div>
+    </div>
+  `;
+  return li;
+}
+
+/** Рендерит каталог с учётом лимита INITIAL_LIMIT */
 function renderCatalog(filteredGames) {
   catalogGrid.innerHTML = '';
+  catalogEmpty.hidden = true;
 
   if (filteredGames.length === 0) {
     catalogEmpty.hidden = false;
+    updateShowMoreBtn(filteredGames);
     return;
   }
-  catalogEmpty.hidden = true;
+
+  const visibleGames = showAll
+    ? filteredGames
+    : filteredGames.slice(0, INITIAL_LIMIT);
 
   const fragment = document.createDocumentFragment();
-
-  filteredGames.forEach((game, index) => {
-    const cat    = CATEGORIES[game.category] ?? { label: game.category.toUpperCase(), cls: '' };
-    const imgSrc = IMG[(game.id - 1) % IMG.length];
-    const ratingHtml = game.rating > 0
-      ? `<span class="game-card__rating" title="Личная оценка">⭐ ${game.rating.toFixed(1)}</span>`
-      : '';
-
-    const li = document.createElement('li');
-    li.className = 'game-card';
-    li.style.animationDelay = `${index * 0.06}s`;
-
-    li.innerHTML = `
-      <div class="game-card__cover">
-        <img
-          src="${imgSrc}"
-          alt="Обложка игры ${escapeHtml(game.name)}"
-          loading="lazy"
-          decoding="async"
-          onerror="handleImgError(this)"
-        />
-      </div>
-      <div class="game-card__body">
-        <div class="game-card__badges">
-          <span class="badge ${cat.cls}">${cat.label}</span>
-          ${ratingHtml}
-        </div>
-        <h3 class="game-card__name">${escapeHtml(game.name)}</h3>
-        <p class="game-card__meta">
-          <span>👥 ${game.players}</span>
-          <span>⏱ ${game.time}</span>
-        </p>
-        <p class="game-card__organizer">
-          ⚡ Игронайзер: <em>${escapeHtml(game.org)}</em>
-        </p>
-        <div class="game-card__price-row">
-          <div class="game-card__price">
-            ${game.price} BYN
-            <span>за сутки</span>
-          </div>
-          <button
-            class="btn btn--outline"
-            data-game-id="${game.id}"
-            data-action="book"
-            aria-label="Забронировать ${escapeHtml(game.name)}"
-          >
-            Забронировать
-          </button>
-        </div>
-      </div>
-    `;
-
-    fragment.appendChild(li);
+  visibleGames.forEach((game, index) => {
+    fragment.appendChild(buildGameCard(game, index));
   });
-
   catalogGrid.appendChild(fragment);
+
+  updateShowMoreBtn(filteredGames);
+}
+
+/** Управляет видимостью и подписью кнопки «Показать все» */
+function updateShowMoreBtn(filteredGames) {
+  const container = document.getElementById('catalog-more');
+  const btn       = document.getElementById('catalog-show-more');
+  if (!container || !btn) return;
+
+  const hasHidden = !showAll && filteredGames.length > INITIAL_LIMIT;
+  container.hidden = !hasHidden;
+
+  if (hasHidden) {
+    btn.textContent = `Показать все игры (${filteredGames.length})`;
+  }
+}
+
+/**
+ * Дописывает оставшиеся карточки без перерендера первых 12.
+ * Новые карточки появляются с анимацией fadeInUp.
+ */
+function appendRemainingGames() {
+  const filteredGames = getFilteredGames();
+  const remaining     = filteredGames.slice(INITIAL_LIMIT);
+
+  const fragment = document.createDocumentFragment();
+  remaining.forEach((game, index) => {
+    fragment.appendChild(buildGameCard(game, INITIAL_LIMIT + index));
+  });
+  catalogGrid.appendChild(fragment);
+
+  showAll = true;
+  updateShowMoreBtn(filteredGames);
 }
 
 function filterAndRender() {
+  showAll = false;          // сбрасываем при любом изменении фильтра/поиска
   renderCatalog(getFilteredGames());
 }
 
@@ -305,6 +350,13 @@ catalogGrid.addEventListener('click', e => {
     calcGame.classList.add('calc-highlight');
     setTimeout(() => calcGame.classList.remove('calc-highlight'), 1400);
   }, 500);
+});
+
+/* --- Обработчик кнопки «Показать все игры» --- */
+document.addEventListener('click', e => {
+  if (e.target.id === 'catalog-show-more') {
+    appendRemainingGames();
+  }
 });
 
 /* ============================================================
