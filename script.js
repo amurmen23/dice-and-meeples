@@ -246,7 +246,7 @@ function renderCatalog(filteredGames) {
           <span>⏱ ${game.time}</span>
         </p>
         <p class="game-card__organizer">
-          ⚡ Упаковано: <em>${escapeHtml(game.org)}</em>
+          ⚡ Игронайзер: <em>${escapeHtml(game.org)}</em>
         </p>
         <div class="game-card__price-row">
           <div class="game-card__price">
