@@ -5,8 +5,8 @@
    Каждая обложка хранится в images/catalog/{id}.jpg
    Если файл отсутствует — браузер подставит images/logo-placeholder.png
 ============================================================ */
-function gameImgPath(id) {
-  return `images/catalog/${id}.jpg`;
+function gameImgPath(game) {
+  return `images/catalog/${game.id}.jpg`;
 }
 
 /* ============================================================
@@ -192,7 +192,7 @@ function getFilteredGames() {
 
 function buildGameCard(game, index) {
   const cat        = CATEGORIES[game.category] ?? { label: game.category.toUpperCase(), cls: '' };
-  const imgSrc     = gameImgPath(game.id);
+  const imgSrc     = gameImgPath(game);
   const ratingHtml = game.rating > 0
     ? `<span class="game-card__rating">⭐ ${game.rating.toFixed(1)}</span>` : '';
 
