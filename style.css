@@ -876,6 +876,11 @@ input, select, button { outline: none; }
   font-weight: 800;
   color: var(--clr-white);
   margin-bottom: 0.5rem;
+  display: inline-block;
+}
+.footer__logo:hover,
+.footer__logo:focus-visible {
+  color: var(--clr-amber);
 }
 .footer__tagline {
   font-size: 0.875rem;

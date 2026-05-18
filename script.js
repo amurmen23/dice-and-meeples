@@ -625,6 +625,43 @@ rentalForm.addEventListener('submit', e => {
 });
 
 /* ============================================================
+   СКРОЛЛ: старт у главной обложки + логотип «наверх»
+   При открытии/обновлении без якоря — верх страницы (hero).
+   Клик по «Dice & Meeples» всегда прокручивает к началу hero (#top).
+============================================================ */
+function initScrollToHeroOnLoad() {
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  const hash = (location.hash || '').toLowerCase();
+  if (!hash || hash === '#top') {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }
+
+  window.addEventListener('pageshow', ev => {
+    if (!ev.persisted) return;
+    const h = (location.hash || '').toLowerCase();
+    if (!h || h === '#top') window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  });
+}
+
+function initLogoScrollToHero() {
+  document.querySelectorAll('.nav__logo, .footer__logo').forEach(logo => {
+    logo.addEventListener('click', ev => {
+      if (ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+      ev.preventDefault();
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      if (history.replaceState) {
+        const base = `${location.pathname}${location.search}`;
+        history.replaceState(null, '', `${base}#top`);
+      }
+      else {
+        location.hash = 'top';
+      }
+    });
+  });
+}
+
+/* ============================================================
    BURGER MENU
 ============================================================ */
 function initBurger() {
@@ -664,6 +701,8 @@ function setFooterYear() {
    ИНИЦИАЛИЗАЦИЯ
 ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
+  initScrollToHeroOnLoad();
+  initLogoScrollToHero();
   setFooterYear();
   injectSearchInput();
   injectBookingFields();
