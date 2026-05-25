@@ -1,23 +1,63 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="cozy">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Dice & Meeples — аренда премиальных настольных игр и уютный клуб в Минске. 98 игр с Игронайзерами, в каталоге на сайте — реальные фото коробок для 40 хитов, список фото дополняем." />
-  <title>Dice & Meeples — Клуб и Прокат Настольных Игр в Минске</title>
+  <meta name="description" content="Dice &amp; Meeples — прокат 98 настольных игр с Игронайзером в Минске. Игровой клуб, полная коллекция с обложками, быстрая раскладка за 5 минут." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#101410" />
+
+  <title>Dice &amp; Meeples — Клуб и Прокат Настольных Игр в Минске</title>
+
+  <link rel="canonical" href="https://amurmen23.github.io/dice-and-meeples/" />
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="images/favicon.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="Dice &amp; Meeples" />
+  <meta property="og:title" content="Dice &amp; Meeples — Прокат и Клуб Настольных Игр в Минске" />
+  <meta property="og:description" content="98 игр в каталоге с полной коллекцией обложек. Прокат с Игронайзером и уютный игровой клуб в Минске." />
+  <meta property="og:url" content="https://amurmen23.github.io/dice-and-meeples/" />
+  <meta property="og:image" content="https://amurmen23.github.io/dice-and-meeples/images/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Коллекция настольных игр Dice &amp; Meeples в Минске" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dice &amp; Meeples — Прокат и Клуб Настольных Игр в Минске" />
+  <meta name="twitter:description" content="98 игр в каталоге с полной коллекцией обложек. Прокат с Игронайзером и уютный игровой клуб в Минске." />
+  <meta name="twitter:image" content="https://amurmen23.github.io/dice-and-meeples/images/og-cover.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="images/hero-bg.jpg" as="image" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Orbitron:wght@600;700&family=Playfair+Display:wght@700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- =========================================================
-       HEADER — фиксированная навигация
-  ========================================================== -->
+  <a class="skip-link" href="#main-content">Перейти к содержимому</a>
+
   <header class="site-header">
     <nav class="nav container" aria-label="Основная навигация">
       <a class="nav__logo" href="#top">Dice &amp; Meeples</a>
+
+      <div class="theme-switch" role="group" aria-label="Переключатель темы оформления">
+        <button class="theme-switch__btn theme-switch__btn--active" type="button" data-theme-set="cozy" aria-pressed="true" title="Ламповый вечер">
+          <span aria-hidden="true">🕯</span> Уют
+        </button>
+        <button class="theme-switch__btn" type="button" data-theme-set="neon" aria-pressed="false" title="Neon Meeple">
+          <span aria-hidden="true">⚡</span> Neon
+        </button>
+      </div>
+
       <button class="nav__burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-links">
         <span></span><span></span><span></span>
       </button>
+
       <ul class="nav__links" id="nav-links" role="list">
         <li><a href="#catalog">Каталог проката</a></li>
         <li><a href="#club">Клубные встречи</a></li>
@@ -27,44 +67,59 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main-content">
 
-    <!-- =========================================================
-         HERO SECTION — главный баннер
-    ========================================================== -->
-    <section class="hero" id="top" aria-labelledby="hero-heading">
+    <section class="hero section--default" id="top" aria-labelledby="hero-heading">
+      <img class="hero__image" src="images/hero-bg.jpg" alt="Стеллаж с настольными играми в клубе Dice &amp; Meeples, Минск" width="1920" height="1080" fetchpriority="high" decoding="async" />
       <div class="hero__inner container">
+        <ul class="hero__badges" role="list" aria-label="Ключевые преимущества">
+          <li class="hero__badge">98 игр</li>
+          <li class="hero__badge">Игронайзер</li>
+          <li class="hero__badge">Минск</li>
+        </ul>
         <h1 class="hero__title" id="hero-heading">
           Аренда премиальных настольных игр<br />
           и уютный клуб в&nbsp;Минске
         </h1>
         <p class="hero__subtitle">
-          Более&nbsp;150+ мировых хитов в&nbsp;идеальном состоянии и&nbsp;с&nbsp;быстрой
-          раскладкой благодаря премиум&#8209;Игронайзерам. Учим правилам за&nbsp;5&nbsp;минут!
+          <span class="hero__subtitle-line">98 игр в каталоге — полная коллекция с обложками.</span>
+          <span class="hero__subtitle-line">Премиум&#8209;Игронайзеры и старт партии за&nbsp;5&nbsp;минут — учим правилам на месте.</span>
         </p>
-        <a class="btn btn--primary" href="#catalog">Открыть каталог</a>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#catalog">Каталог</a>
+          <a class="btn btn--outline" href="#club">Записаться в клуб</a>
+        </div>
       </div>
     </section>
 
-    <!-- =========================================================
-         ADVANTAGES — блок преимуществ (3 карточки)
-    ========================================================== -->
-    <section class="advantages" id="advantages" aria-labelledby="advantages-heading">
+    <section class="advantages section--alt" id="advantages" aria-labelledby="advantages-heading">
       <div class="container">
         <h2 class="section-title" id="advantages-heading">Почему выбирают нас</h2>
-        <ul class="advantages__grid" role="list">
+        <p class="section-subtitle">98 игр в каталоге с полной коллекцией обложек — от семейных хитов до делюкс-изданий.</p>
 
+        <ul class="advantages__grid" role="list">
           <li class="card card--advantage">
-            <div class="card__icon card__icon--gold" aria-hidden="true">&#x265F;</div>
+            <div class="card__icon card__icon--svg" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 4L8 14v20l16 10 16-10V14L24 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M24 24V44M8 14l16 10 16-10M24 24L8 14M24 24l16-10" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
             <h3 class="card__title">Элитная коллекция</h3>
             <p class="card__text">
-              От семейных абстрактов до топ-гиковских делюкс-изданий вроде
-              <em>Castles of Burgundy Special Edition</em>.
+              98 игр в каталоге — от семейных абстрактов до топовых делюкс-изданий вроде
+              <em>Castles of Burgundy Special Edition</em>. Полная коллекция с обложками.
             </p>
           </li>
 
           <li class="card card--advantage">
-            <div class="card__icon" aria-hidden="true">⚡</div>
+            <div class="card__icon card__icon--svg" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="10" width="36" height="28" rx="4" stroke="currentColor" stroke-width="2"/>
+                <path d="M14 22h20M14 30h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M30 6v8M18 6v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
             <h3 class="card__title">Игронайзер&nbsp;— наше УТП</h3>
             <p class="card__text">
               Каждая игра укомплектована премиум&#8209;Игронайзером: кастомные инлеи и&nbsp;органайзеры Gamefit.
@@ -73,42 +128,43 @@
           </li>
 
           <li class="card card--advantage">
-            <div class="card__icon" aria-hidden="true">🎲</div>
+            <div class="card__icon card__icon--svg" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2"/>
+                <circle cx="18" cy="20" r="2" fill="currentColor"/>
+                <circle cx="30" cy="20" r="2" fill="currentColor"/>
+                <circle cx="24" cy="28" r="2" fill="currentColor"/>
+                <circle cx="18" cy="32" r="2" fill="currentColor"/>
+                <circle cx="30" cy="32" r="2" fill="currentColor"/>
+              </svg>
+            </div>
             <h3 class="card__title">Игротеки с&nbsp;мастером</h3>
             <p class="card__text">
               Собираемся каждые выходные. Вам не&nbsp;нужно читать правила&nbsp;—
               игромастер всё покажет и&nbsp;расскажет.
             </p>
           </li>
-
         </ul>
       </div>
     </section>
 
-    <!-- =========================================================
-         CATALOG SECTION — каталог проката
-    ========================================================== -->
-    <section class="catalog" id="catalog" aria-labelledby="catalog-heading">
+    <section class="catalog section--default" id="catalog" aria-labelledby="catalog-heading">
       <div class="container">
         <h2 class="section-title" id="catalog-heading">Каталог проката</h2>
-        <p class="section-subtitle">98 базовых игр — от лёгких семейных до топовых делюкс-изданий. Реальные фото коробок уже добавлены для 40 игр в каталоге; у остальных пока наш премиальный плейсхолдер — обложки пополняются.</p>
+        <p class="section-subtitle">98 игр в каталоге — полная коллекция с обложками. От лёгких семейных до топовых делюкс-изданий.</p>
 
-        <!-- Фильтры -->
         <div class="catalog__filters" id="catalog-filters" role="group" aria-label="Фильтры каталога">
-          <button class="btn btn--filter btn--active" data-filter="all">Все игры</button>
-          <button class="btn btn--filter" data-filter="family">Семейные</button>
-          <button class="btn btn--filter" data-filter="strategy">Стратегии</button>
-          <button class="btn btn--filter" data-filter="hardcore">Хардкор</button>
-          <button class="btn btn--filter" data-filter="coop">Кооперативные</button>
-          <button class="btn btn--filter" data-filter="deluxe">Делюкс-издания</button>
+          <button class="btn btn--filter btn--active" type="button" data-filter="all">Все игры</button>
+          <button class="btn btn--filter" type="button" data-filter="family">Семейные</button>
+          <button class="btn btn--filter" type="button" data-filter="strategy">Стратегии</button>
+          <button class="btn btn--filter" type="button" data-filter="hardcore">Хардкор</button>
+          <button class="btn btn--filter" type="button" data-filter="coop">Кооперативные</button>
+          <button class="btn btn--filter" type="button" data-filter="deluxe">Делюкс-издания</button>
         </div>
 
-        <!-- Сетка карточек игр — наполняется через script.js -->
-        <ul class="catalog__grid" id="catalog-grid" role="list" aria-live="polite" aria-label="Список игр">
-          <!-- JS вставляет карточки сюда -->
+        <ul class="catalog__grid" id="catalog-grid" role="list" aria-live="polite" aria-busy="true" aria-label="Список игр">
         </ul>
 
-        <!-- Кнопка «Показать больше» — управляется через script.js -->
         <div class="catalog__more" id="catalog-more" hidden>
           <button class="btn btn--more" id="catalog-show-more" type="button">
             Показать все игры
@@ -121,76 +177,78 @@
       </div>
     </section>
 
-    <!-- =========================================================
-         CALCULATOR SECTION — калькулятор стоимости аренды
-    ========================================================== -->
-    <section class="calculator" id="prices" aria-labelledby="calc-heading">
+    <section class="calculator section--alt" id="prices" aria-labelledby="calc-heading">
       <div class="container">
         <h2 class="section-title" id="calc-heading">Оформить бронь</h2>
         <p class="section-subtitle">
           Выберите услугу, заполните контакты — мы перезвоним для подтверждения.
         </p>
 
-        <form class="calc__form" id="rental-calculator" novalidate>
-
-          <!-- ШАГ 1: Тип услуги -->
-          <div class="form-group">
-            <label class="form-label" for="service-type">Что вас интересует?</label>
-            <select class="form-select" id="service-type" name="service-type">
-              <option value="rental">Аренда игры из каталога</option>
-              <option value="club_single">Разовое посещение клуба — 12 BYN</option>
-              <option value="club_monthly">Абонемент «Постоянный игрок» — 45 BYN</option>
-            </select>
+        <div class="calc__card">
+          <div class="form-progress" aria-live="polite">
+            <span class="form-progress__label" id="form-progress-label">Шаг 1 из 3</span>
+            <div class="form-progress__bar" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" aria-labelledby="form-progress-label">
+              <span class="form-progress__fill" id="form-progress-fill" style="width: 33.33%"></span>
+            </div>
           </div>
 
-          <!-- ШАГ 2: Игра — только для аренды -->
-          <div class="form-group" id="game-section">
-            <label class="form-label" for="calc-game">Игра</label>
-            <select class="form-select" id="calc-game" name="game">
-              <option value="" disabled selected>— выберите игру —</option>
-            </select>
-          </div>
+          <form class="calc__form" id="rental-calculator" novalidate>
 
-          <!-- ШАГ 3: Дни — только для аренды -->
-          <div class="form-group" id="days-section">
-            <label class="form-label" for="calc-days">Количество дней аренды</label>
-            <input
-              class="form-input"
-              type="number"
-              id="calc-days"
-              name="days"
-              min="1"
-              max="30"
-              value="1"
-            />
-          </div>
+            <fieldset class="form-step" id="step-service">
+              <legend class="form-step__legend">Шаг 1 — Услуга</legend>
+              <div class="form-group">
+                <label class="form-label" for="service-type">Что вас интересует?</label>
+                <select class="form-select" id="service-type" name="service-type">
+                  <option value="rental">Аренда игры из каталога (98 игр)</option>
+                  <option value="club_single">Разовое посещение клуба — 12 BYN</option>
+                  <option value="club_monthly">Абонемент «Постоянный игрок» — 45 BYN</option>
+                </select>
+              </div>
+            </fieldset>
 
-          <!-- Имя и Телефон — инжектируются через script.js -->
+            <fieldset class="form-step" id="step-details">
+              <legend class="form-step__legend">Шаг 2 — Детали аренды</legend>
+              <div class="form-group" id="game-section">
+                <label class="form-label" for="calc-game">Игра</label>
+                <select class="form-select" id="calc-game" name="game">
+                  <option value="" disabled selected>— выберите игру —</option>
+                </select>
+              </div>
+              <div class="form-group" id="days-section">
+                <label class="form-label" for="calc-days">Количество дней аренды</label>
+                <input class="form-input" type="number" id="calc-days" name="days" min="1" max="30" value="1" />
+              </div>
+            </fieldset>
 
-          <button class="btn btn--primary" type="submit" id="calc-submit">
-            Рассчитать и забронировать
-          </button>
+            <fieldset class="form-step" id="step-contact">
+              <legend class="form-step__legend">Шаг 3 — Контакты</legend>
+              <div id="booking-fields"></div>
+            </fieldset>
 
-        </form>
+            <button class="btn btn--primary" type="submit" id="calc-submit">
+              Рассчитать и забронировать
+            </button>
+          </form>
 
-        <output class="calc__result" id="calc-result" for="rental-calculator" hidden></output>
-
+          <output class="calc__result" id="calc-result" for="rental-calculator" hidden></output>
+        </div>
       </div>
     </section>
 
-    <!-- =========================================================
-         CLUB PRICE SECTION — тарифы клуба
-    ========================================================== -->
-    <section class="club-prices" id="club" aria-labelledby="club-heading">
+    <section class="club-prices section--default" id="club" aria-labelledby="club-heading">
       <div class="container">
         <h2 class="section-title" id="club-heading">Клубные встречи</h2>
         <p class="section-subtitle">
           Приходите сыграть прямо у&nbsp;нас — каждые выходные
-          с&nbsp;игромастером и&nbsp;отличной атмосферой.
+          с&nbsp;игромастером и&nbsp;отличной атмосферой. 98 игр в коллекции клуба.
         </p>
 
-        <ul class="pricing__grid" role="list">
+        <figure class="club__atmosphere">
+          <img src="images/club-atmosphere.jpg" alt="Друзья играют в настольные игры за столом в уютной атмосфере клуба" width="1200" height="675" loading="lazy" decoding="async" />
+          <figcaption class="club__atmosphere-caption">Вечер настолок в хорошей компании — каждые выходные в Dice &amp; Meeples</figcaption>
+        </figure>
 
+        <ul class="pricing__grid" role="list">
           <li class="card card--pricing">
             <h3 class="card__plan">Разовое посещение</h3>
             <div class="card__price">
@@ -199,7 +257,7 @@
             </div>
             <ul class="card__features" role="list">
               <li>Весь вечер в&nbsp;клубе</li>
-              <li>Доступ к&nbsp;любой игре из&nbsp;коллекции</li>
+              <li>Доступ к&nbsp;98 играм коллекции</li>
               <li>Помощь игромастера</li>
               <li>Чай / кофе включён</li>
             </ul>
@@ -215,32 +273,28 @@
             </div>
             <ul class="card__features" role="list">
               <li>Неограниченные визиты в&nbsp;месяц</li>
-              <li>Доступ к&nbsp;любой игре из&nbsp;коллекции</li>
+              <li>Доступ к&nbsp;98 играм коллекции</li>
               <li>Помощь игромастера</li>
               <li>Чай / кофе включён</li>
               <li>Скидка&nbsp;10% на&nbsp;прокат игр</li>
             </ul>
             <button class="btn btn--primary" type="button" data-plan="club_monthly">Оформить</button>
           </li>
-
         </ul>
       </div>
     </section>
 
   </main>
 
-  <!-- =========================================================
-       CONTACTS & FOOTER
-  ========================================================== -->
-  <footer class="site-footer" id="contacts">
+  <footer class="site-footer section--alt" id="contacts">
     <div class="container footer__inner">
-
       <div class="footer__col footer__col--brand">
         <a href="#top" class="footer__logo">Dice &amp; Meeples</a>
-        <p class="footer__tagline">Клуб и&nbsp;прокат настольных игр в&nbsp;Минске</p>
+        <p class="footer__tagline">Клуб и&nbsp;прокат настольных игр в&nbsp;Минске · 98 игр в каталоге</p>
       </div>
 
       <address class="footer__col footer__col--contact" aria-label="Контактная информация">
+        <h2 class="footer__heading">Контакты</h2>
         <p>
           <strong>Адрес:</strong><br />
           г.&nbsp;Минск, ул.&nbsp;Примерная, д.&nbsp;1, офис&nbsp;101
@@ -255,8 +309,16 @@
         </p>
       </address>
 
+      <div class="footer__col footer__col--directions">
+        <h2 class="footer__heading">Как добраться</h2>
+        <p class="footer__directions">
+          Станция метро «Примерная» (5&nbsp;мин пешком). Вход со двора, вывеска Dice &amp; Meeples.
+          Парковка для гостей на 3&nbsp;места. Звоните за&nbsp;5&nbsp;минут — встретим у&nbsp;подъезда.
+        </p>
+      </div>
+
       <div class="footer__col footer__col--hours">
-        <strong>Время работы</strong>
+        <h2 class="footer__heading">Время работы</h2>
         <ul role="list">
           <li>Пн–Пт: 16:00 – 22:00</li>
           <li>Сб–Вс: 12:00 – 23:00</li>
@@ -264,35 +326,106 @@
       </div>
 
       <div class="footer__col footer__col--social">
-        <strong>Мы в&nbsp;соцсетях</strong>
-        <ul class="social-links" role="list">
+        <h2 class="footer__heading">Мы в&nbsp;соцсетях</h2>
+        <ul class="social-links social-links--icons" role="list">
           <li>
-            <a href="https://t.me/diceandmeeples" target="_blank" rel="noopener noreferrer"
-               aria-label="Telegram канал Dice &amp; Meeples">
-              Telegram
+            <a href="https://t.me/diceandmeeples" target="_blank" rel="noopener noreferrer" aria-label="Telegram Dice &amp; Meeples">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" fill="currentColor"/></svg>
+              <span>Telegram</span>
             </a>
           </li>
           <li>
-            <a href="https://instagram.com/diceandmeeples" target="_blank" rel="noopener noreferrer"
-               aria-label="Instagram Dice &amp; Meeples">
-              Instagram
+            <a href="https://instagram.com/diceandmeeples" target="_blank" rel="noopener noreferrer" aria-label="Instagram Dice &amp; Meeples">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="currentColor"/></svg>
+              <span>Instagram</span>
             </a>
           </li>
           <li>
-            <a href="https://vk.com/diceandmeeples" target="_blank" rel="noopener noreferrer"
-               aria-label="ВКонтакте Dice &amp; Meeples">
-              ВКонтакте
+            <a href="https://vk.com/diceandmeeples" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте Dice &amp; Meeples">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.525-2.049-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.049 2.303 3.896 2.896 3.896.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .373.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.271.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.049.17.474-.085.720-.576.720z" fill="currentColor"/></svg>
+              <span>ВКонтакте</span>
             </a>
           </li>
         </ul>
       </div>
-
     </div>
 
     <div class="footer__bottom">
       <p>&copy; <span id="footer-year"></span> Dice &amp; Meeples. Все права защищены.</p>
     </div>
   </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://amurmen23.github.io/dice-and-meeples/#organization",
+        "name": "Dice & Meeples",
+        "url": "https://amurmen23.github.io/dice-and-meeples/",
+        "logo": "https://amurmen23.github.io/dice-and-meeples/images/favicon.svg",
+        "sameAs": [
+          "https://t.me/diceandmeeples",
+          "https://instagram.com/diceandmeeples",
+          "https://vk.com/diceandmeeples"
+        ]
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://amurmen23.github.io/dice-and-meeples/#localbusiness",
+        "name": "Dice & Meeples",
+        "description": "Прокат 98 настольных игр с Игронайзером и игровой клуб в Минске.",
+        "url": "https://amurmen23.github.io/dice-and-meeples/",
+        "telephone": "+375291234567",
+        "email": "hello@diceandmeeples.by",
+        "priceRange": "BYN",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "ул. Примерная, д. 1, офис 101",
+          "addressLocality": "Минск",
+          "addressCountry": "BY"
+        },
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "16:00", "closes": "22:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "12:00", "closes": "23:00" }
+        ],
+        "parentOrganization": { "@id": "https://amurmen23.github.io/dice-and-meeples/#organization" }
+      },
+      {
+        "@type": "ItemList",
+        "name": "Топ игр каталога Dice & Meeples",
+        "numberOfItems": 8,
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "The Castles of Burgundy: Special Edition" },
+          { "@type": "ListItem", "position": 2, "name": "Анахронность Биг Бокс" },
+          { "@type": "ListItem", "position": 3, "name": "Слишком много костей" },
+          { "@type": "ListItem", "position": 4, "name": "Каменный век: На заре человечества" },
+          { "@type": "ListItem", "position": 5, "name": "Плотина" },
+          { "@type": "ListItem", "position": 6, "name": "Подводные города" },
+          { "@type": "ListItem", "position": 7, "name": "Проект «Гайя»" },
+          { "@type": "ListItem", "position": 8, "name": "Проект Возрождение" }
+        ]
+      },
+      {
+        "@type": "Offer",
+        "name": "Разовое посещение клуба",
+        "price": "12",
+        "priceCurrency": "BYN",
+        "availability": "https://schema.org/InStock",
+        "seller": { "@id": "https://amurmen23.github.io/dice-and-meeples/#localbusiness" }
+      },
+      {
+        "@type": "Offer",
+        "name": "Месячный абонемент «Постоянный игрок»",
+        "price": "45",
+        "priceCurrency": "BYN",
+        "availability": "https://schema.org/InStock",
+        "seller": { "@id": "https://amurmen23.github.io/dice-and-meeples/#localbusiness" }
+      }
+    ]
+  }
+  </script>
 
   <script src="script.js"></script>
 </body>

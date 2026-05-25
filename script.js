@@ -1,9 +1,7 @@
 'use strict';
 
 /* ============================================================
-   ПУТЬ К ОБЛОЖКАМ ИГР
-   Файлы: images/catalog/{id}.jpg — сейчас в репозитории обложки id 1…40,
-   для остальных id при отсутствии файла сработает fallback (см. onerror HTML).
+   ПУТЬ К ОБЛОЖКАМ ИГР — images/catalog/{id}.jpg (полная коллекция 1…98)
 ============================================================ */
 function gameImgPath(game) {
   return `images/catalog/${game.id}.jpg`;
@@ -136,6 +134,8 @@ const SERVICES = {
 const DISCOUNT_THRESHOLD = 3;
 const DISCOUNT_RATE      = 0.15;
 const INITIAL_LIMIT      = 12;
+const THEME_STORAGE_KEY  = 'dm-theme';
+const SKELETON_COUNT     = 8;
 
 /* ============================================================
    DOM — ссылки
@@ -224,6 +224,7 @@ function buildGameCard(game, index) {
 
 function renderCatalog(filteredGames) {
   catalogGrid.innerHTML = '';
+  catalogGrid.setAttribute('aria-busy', 'false');
   catalogEmpty.hidden = true;
 
   if (filteredGames.length === 0) {
@@ -237,6 +238,33 @@ function renderCatalog(filteredGames) {
   visible.forEach((g, i) => fragment.appendChild(buildGameCard(g, i)));
   catalogGrid.appendChild(fragment);
   updateShowMoreBtn(filteredGames);
+}
+
+function buildSkeletonCard() {
+  const li = document.createElement('li');
+  li.className = 'game-card game-card--skeleton';
+  li.setAttribute('aria-hidden', 'true');
+  li.innerHTML = `
+    <div class="skeleton-block skeleton-cover"></div>
+    <div class="skeleton-line skeleton-line--short"></div>
+    <div class="skeleton-line skeleton-line--mid"></div>
+    <div class="skeleton-line"></div>`;
+  return li;
+}
+
+function showCatalogSkeleton() {
+  catalogGrid.innerHTML = '';
+  catalogGrid.setAttribute('aria-busy', 'true');
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < SKELETON_COUNT; i++) fragment.appendChild(buildSkeletonCard());
+  catalogGrid.appendChild(fragment);
+}
+
+function initCatalogWithLoader() {
+  showCatalogSkeleton();
+  requestAnimationFrame(() => {
+    setTimeout(() => filterAndRender(), 280);
+  });
 }
 
 function updateShowMoreBtn(filteredGames) {
@@ -406,25 +434,22 @@ document.addEventListener('click', e => {
    ФОРМА — инжекция полей Имя / Телефон
 ============================================================ */
 function injectBookingFields() {
-  const submitBtn = document.getElementById('calc-submit');
+  const container = document.getElementById('booking-fields');
+  if (!container) return;
 
-  const nameGroup = document.createElement('div');
-  nameGroup.className = 'form-group';
-  nameGroup.innerHTML = `
-    <label class="form-label" for="booking-name">Ваше имя</label>
-    <input class="form-input" type="text" id="booking-name" name="booking-name"
-           placeholder="Иван Иванов" autocomplete="name"/>
-    <span class="form-error" id="err-name" hidden>Введите имя (минимум 2 символа)</span>`;
-
-  const phoneGroup = document.createElement('div');
-  phoneGroup.className = 'form-group';
-  phoneGroup.innerHTML = `
-    <label class="form-label" for="booking-phone">Телефон</label>
-    <input class="form-input" type="tel" id="booking-phone" name="booking-phone"
-           placeholder="+375 29 000-00-00" autocomplete="tel"/>
-    <span class="form-error" id="err-phone" hidden>Введите корректный номер телефона</span>`;
-
-  submitBtn.before(nameGroup, phoneGroup);
+  container.innerHTML = `
+    <div class="form-group">
+      <label class="form-label" for="booking-name">Ваше имя</label>
+      <input class="form-input" type="text" id="booking-name" name="booking-name"
+             placeholder="Иван Иванов" autocomplete="name"/>
+      <span class="form-error" id="err-name" hidden>Введите имя (минимум 2 символа)</span>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="booking-phone">Телефон</label>
+      <input class="form-input" type="tel" id="booking-phone" name="booking-phone"
+             placeholder="+375 29 000-00-00" autocomplete="tel"/>
+      <span class="form-error" id="err-phone" hidden>Введите корректный номер телефона</span>
+    </div>`;
 }
 
 /* ============================================================
@@ -662,6 +687,81 @@ function initLogoScrollToHero() {
 }
 
 /* ============================================================
+   FORM PROGRESS
+============================================================ */
+function updateFormProgress(step) {
+  const label = document.getElementById('form-progress-label');
+  const fill  = document.getElementById('form-progress-fill');
+  const bar   = document.querySelector('.form-progress__bar');
+  const clamped = Math.min(3, Math.max(1, step));
+  if (label) label.textContent = `Шаг ${clamped} из 3`;
+  if (fill)  fill.style.width = `${(clamped / 3) * 100}%`;
+  if (bar)   bar.setAttribute('aria-valuenow', String(clamped));
+}
+
+function initFormProgress() {
+  if (!rentalForm) return;
+
+  rentalForm.addEventListener('focusin', e => {
+    const id = e.target.id;
+    if (id === 'service-type') updateFormProgress(1);
+    if (id === 'calc-game' || id === 'calc-days') updateFormProgress(2);
+    if (id === 'booking-name' || id === 'booking-phone') updateFormProgress(3);
+  });
+
+  updateFormProgress(1);
+}
+
+/* ============================================================
+   THEME SWITCHER
+============================================================ */
+function setTheme(name) {
+  const theme = name === 'neon' ? 'neon' : 'cozy';
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem(THEME_STORAGE_KEY, theme);
+
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) metaTheme.content = theme === 'neon' ? '#050508' : '#101410';
+
+  document.querySelectorAll('[data-theme-set]').forEach(btn => {
+    const active = btn.dataset.themeSet === theme;
+    btn.classList.toggle('theme-switch__btn--active', active);
+    btn.setAttribute('aria-pressed', String(active));
+  });
+}
+
+function initThemeSwitcher() {
+  setTheme(localStorage.getItem(THEME_STORAGE_KEY) || 'cozy');
+  document.querySelectorAll('[data-theme-set]').forEach(btn => {
+    btn.addEventListener('click', () => setTheme(btn.dataset.themeSet));
+  });
+}
+
+/* ============================================================
+   SCROLL SPY
+============================================================ */
+function initScrollSpy() {
+  const links = document.querySelectorAll('.nav__links a[href^="#"]');
+  const sections = [...links]
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  if (!sections.length) return;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.id;
+      links.forEach(a => {
+        a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`);
+      });
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+  sections.forEach(sec => observer.observe(sec));
+}
+
+/* ============================================================
    BURGER MENU
 ============================================================ */
 function initBurger() {
@@ -701,6 +801,7 @@ function setFooterYear() {
    ИНИЦИАЛИЗАЦИЯ
 ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
+  initThemeSwitcher();
   initScrollToHeroOnLoad();
   initLogoScrollToHero();
   setFooterYear();
@@ -708,13 +809,18 @@ document.addEventListener('DOMContentLoaded', () => {
   injectBookingFields();
   injectModal();
   populateCalcSelect();
-  filterAndRender();
+  initCatalogWithLoader();
   initBurger();
   initScrollHeader();
+  initScrollSpy();
+  initFormProgress();
 
   const serviceEl = document.getElementById('service-type');
   if (serviceEl) {
-    serviceEl.addEventListener('change', updateServiceUI);
+    serviceEl.addEventListener('change', () => {
+      updateServiceUI();
+      updateFormProgress(1);
+    });
     updateServiceUI();
   }
 });
