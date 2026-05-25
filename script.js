@@ -134,8 +134,37 @@ const SERVICES = {
 const DISCOUNT_THRESHOLD = 3;
 const DISCOUNT_RATE      = 0.15;
 const INITIAL_LIMIT      = 12;
-const THEME_STORAGE_KEY  = 'dm-theme';
+const MATERIAL_STORAGE_KEY = 'dm-toggle-material';
+const ENERGY_STORAGE_KEY   = 'dm-toggle-energy';
 const SKELETON_COUNT     = 8;
+
+const CLUB_IMAGES = {
+  cozy:  'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=800&q=80',
+  glass: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+  cyber: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80',
+  royal: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80',
+};
+
+const CLUB_IMAGE_ALT = {
+  cozy:  'Уютный вечер за настольными играми при свечах в клубе Dice & Meeples',
+  glass: 'Минималистичный премиум-интерьер хай-тек клуба настольных игр',
+  cyber: 'Игровой неоновый зал будущего с атмосферой киберпанка',
+  royal: 'Роскошный VIP-зал с тёмным деревом и премиальным интерьером',
+};
+
+const THEME_LABELS = {
+  cozy:  'Ламповый вечер',
+  glass: 'Магическое стекло',
+  cyber: 'Неоновый киберпанк',
+  royal: 'Королевский делюкс',
+};
+
+const THEME_COLORS = {
+  cozy:  '#101410',
+  glass: '#0a0c14',
+  cyber: '#09090b',
+  royal: 'oklch(0.12 0.01 320)',
+};
 
 /* ============================================================
    DOM — ссылки
@@ -713,28 +742,79 @@ function initFormProgress() {
 }
 
 /* ============================================================
-   THEME SWITCHER
+   THEME MATRIX — dual toggles (material × energy)
 ============================================================ */
-function setTheme(name) {
-  const theme = name === 'neon' ? 'neon' : 'cozy';
-  document.documentElement.dataset.theme = theme;
-  localStorage.setItem(THEME_STORAGE_KEY, theme);
-
-  const metaTheme = document.querySelector('meta[name="theme-color"]');
-  if (metaTheme) metaTheme.content = theme === 'neon' ? '#050508' : '#101410';
-
-  document.querySelectorAll('[data-theme-set]').forEach(btn => {
-    const active = btn.dataset.themeSet === theme;
-    btn.classList.toggle('theme-switch__btn--active', active);
-    btn.setAttribute('aria-pressed', String(active));
-  });
+function computeTheme(material, energy) {
+  if (!material && !energy) return 'cozy';
+  if (material && !energy)  return 'glass';
+  if (material && energy)   return 'cyber';
+  return 'royal';
 }
 
-function initThemeSwitcher() {
-  setTheme(localStorage.getItem(THEME_STORAGE_KEY) || 'cozy');
-  document.querySelectorAll('[data-theme-set]').forEach(btn => {
-    btn.addEventListener('click', () => setTheme(btn.dataset.themeSet));
-  });
+function updateClubImage(theme) {
+  const img = document.getElementById('club-image');
+  const tag = document.getElementById('club-theme-tag');
+  if (!img || img.dataset.theme === theme) return;
+
+  img.dataset.theme = theme;
+  img.classList.add('is-swapping');
+
+  window.setTimeout(() => {
+    img.src = CLUB_IMAGES[theme];
+    img.alt = CLUB_IMAGE_ALT[theme];
+    requestAnimationFrame(() => img.classList.remove('is-swapping'));
+  }, 220);
+
+  if (tag) tag.textContent = THEME_LABELS[theme];
+}
+
+function applyThemeMatrix(material, energy) {
+  const theme = computeTheme(material, energy);
+
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem(MATERIAL_STORAGE_KEY, String(material));
+  localStorage.setItem(ENERGY_STORAGE_KEY, String(energy));
+
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) metaTheme.content = THEME_COLORS[theme];
+
+  const materialToggle = document.getElementById('toggle-material');
+  const energyToggle   = document.getElementById('toggle-energy');
+  if (materialToggle) materialToggle.checked = material;
+  if (energyToggle)   energyToggle.checked   = energy;
+
+  updateClubImage(theme);
+}
+
+function readStoredToggles() {
+  const legacyTheme = localStorage.getItem('dm-theme');
+  if (legacyTheme && !localStorage.getItem(MATERIAL_STORAGE_KEY)) {
+    if (legacyTheme === 'neon') return { material: true, energy: true };
+    return { material: false, energy: false };
+  }
+
+  return {
+    material: localStorage.getItem(MATERIAL_STORAGE_KEY) === 'true',
+    energy:   localStorage.getItem(ENERGY_STORAGE_KEY) === 'true',
+  };
+}
+
+function initThemeMatrix() {
+  const { material, energy } = readStoredToggles();
+  applyThemeMatrix(material, energy);
+
+  const materialToggle = document.getElementById('toggle-material');
+  const energyToggle   = document.getElementById('toggle-energy');
+
+  const onToggleChange = () => {
+    applyThemeMatrix(
+      Boolean(materialToggle?.checked),
+      Boolean(energyToggle?.checked),
+    );
+  };
+
+  materialToggle?.addEventListener('change', onToggleChange);
+  energyToggle?.addEventListener('change', onToggleChange);
 }
 
 /* ============================================================
@@ -801,7 +881,7 @@ function setFooterYear() {
    ИНИЦИАЛИЗАЦИЯ
 ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
-  initThemeSwitcher();
+  initThemeMatrix();
   initScrollToHeroOnLoad();
   initLogoScrollToHero();
   setFooterYear();

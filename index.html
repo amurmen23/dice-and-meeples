@@ -43,15 +43,40 @@
 
   <header class="site-header">
     <nav class="nav container" aria-label="Основная навигация">
-      <a class="nav__logo" href="#top">Dice &amp; Meeples</a>
+      <div class="nav__brand-hub" role="group" aria-label="Настройки оформления и логотип">
+        <label class="premium-toggle premium-toggle--material" for="toggle-material" title="Текстура: Аналоговый / Виртуальный">
+          <span class="premium-toggle__caption premium-toggle__caption--off">🪵 Уют</span>
+          <input
+            type="checkbox"
+            id="toggle-material"
+            class="premium-toggle__input"
+            aria-label="Текстура: выключено — аналоговый уют, включено — виртуальный глянец"
+          />
+          <span class="premium-toggle__track" aria-hidden="true">
+            <span class="premium-toggle__icon premium-toggle__icon--off">🪵</span>
+            <span class="premium-toggle__icon premium-toggle__icon--on">🌐</span>
+            <span class="premium-toggle__thumb"></span>
+          </span>
+          <span class="premium-toggle__caption premium-toggle__caption--on">🌐 Глянец</span>
+        </label>
 
-      <div class="theme-switch" role="group" aria-label="Переключатель темы оформления">
-        <button class="theme-switch__btn theme-switch__btn--active" type="button" data-theme-set="cozy" aria-pressed="true" title="Ламповый вечер">
-          <span aria-hidden="true">🕯</span> Уют
-        </button>
-        <button class="theme-switch__btn" type="button" data-theme-set="neon" aria-pressed="false" title="Neon Meeple">
-          <span aria-hidden="true">⚡</span> Neon
-        </button>
+        <a class="nav__logo" href="#top">Dice &amp; Meeples</a>
+
+        <label class="premium-toggle premium-toggle--energy" for="toggle-energy" title="Атмосфера: Спокойный / Эффектный">
+          <span class="premium-toggle__caption premium-toggle__caption--off">☕ Спокойно</span>
+          <input
+            type="checkbox"
+            id="toggle-energy"
+            class="premium-toggle__input"
+            aria-label="Атмосфера: выключено — спокойный режим, включено — эффектный вау"
+          />
+          <span class="premium-toggle__track" aria-hidden="true">
+            <span class="premium-toggle__icon premium-toggle__icon--off">☕</span>
+            <span class="premium-toggle__icon premium-toggle__icon--on">✨</span>
+            <span class="premium-toggle__thumb"></span>
+          </span>
+          <span class="premium-toggle__caption premium-toggle__caption--on">✨ Вау</span>
+        </label>
       </div>
 
       <button class="nav__burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-links">
@@ -244,7 +269,22 @@
         </p>
 
         <figure class="club__atmosphere">
-          <img src="images/club-atmosphere.jpg" alt="Друзья играют в настольные игры за столом в уютной атмосфере клуба" width="1200" height="675" loading="lazy" decoding="async" />
+          <div class="club__atmosphere-frame">
+            <div class="club__atmosphere-viewport">
+              <img
+                id="club-image"
+                class="club__atmosphere-img"
+                data-theme="cozy"
+                src="https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                alt="Уютный вечер за настольными играми при свечах в клубе Dice &amp; Meeples"
+                width="800"
+                height="450"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <span class="club__atmosphere-tag" id="club-theme-tag">Ламповый вечер</span>
+          </div>
           <figcaption class="club__atmosphere-caption">Вечер настолок в хорошей компании — каждые выходные в Dice &amp; Meeples</figcaption>
         </figure>
 
