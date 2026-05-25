@@ -421,6 +421,13 @@ input, select, button { outline: none; }
   justify-content: center;
   gap: clamp(0.65rem, 2vw, 1.25rem);
   flex-shrink: 0;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: linear-gradient(145deg, var(--clr-surface-2), var(--clr-surface));
+  border: 1px solid var(--clr-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 4px 20px rgba(0, 0, 0, 0.28);
 }
 
 .nav__logo {
@@ -2091,6 +2098,13 @@ input, select, button { outline: none; }
 ============================================================ */
 
 /* Glassmorphism utility (v0) */
+.glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .glass-card,
 [data-theme="glass"] .card,
 [data-theme="glass"] .game-card,
@@ -2102,6 +2116,17 @@ input, select, button { outline: none; }
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="cozy"] .card:hover,
+[data-theme="cozy"] .game-card:hover {
+  transform: var(--game-card-hover);
+}
+
+[data-theme="glass"] .card:hover,
+[data-theme="glass"] .game-card:hover {
+  animation-play-state: paused;
+  transform: translateY(-8px);
 }
 
 [data-theme="glass"] .card,

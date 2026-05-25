@@ -18,8 +18,8 @@
 
 | Тумблер | ID | Ось | Выключен (Off) | Включен (On) |
 |---------|-----|-----|----------------|--------------|
-| Левый | `#toggle-material` | Текстура | 🪵 Аналоговый / Уютный | 🌐 Виртуальный / Глянцевый |
-| Правый | `#toggle-energy` | Атмосфера | ☕ Спокойный | ✨ Эффектный / Вау |
+| Левый | `#toggle-material` | Текстура | 🪵 Аналоговый | 🌐 Глянцевый |
+| Правый | `#toggle-energy` | Атмосфера | ☕ Спокойный | ✨ Эффектный |
 
 ### Матрица состояний → `data-theme`
 
@@ -43,7 +43,8 @@ function computeTheme(material, energy) {
 
 - **Persist:** `localStorage` ключи `dm-toggle-material` и `dm-toggle-energy` (boolean string).
 - **Legacy:** старый ключ `dm-theme=neon` мигрирует в `{ material: true, energy: true }`.
-- **Club image:** `#club-image` меняет `src` и `alt` при каждой смене темы (Unsplash, см. ниже).
+- **Club image:** `#club-image` меняет `src` и `alt` на локальные файлы из `images/` (см. ниже).
+- **Targets:** `data-theme` выставляется на `<html>` и `<body>`.
 
 ### CSS-класс тумблера
 
@@ -79,10 +80,14 @@ function computeTheme(material, energy) {
 | `--radius-lg` | `24px` (мягкие скругления) |
 | `--transition` | `400ms cubic-bezier(0.4, 0, 0.2, 1)` |
 
-### Клубное фото (Unsplash)
+### Клубное фото (локальные assets)
 
-`https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=800&q=80`  
-Уютный вечер за настолками при свечах.
+| Тема | Файл |
+|------|------|
+| `cozy` | `images/club-cozy.png` |
+| `glass` | `images/club-glass.png` |
+| `cyber` | `images/club-cyber.png` |
+| `royal` | `images/club-royal.png` |
 
 ---
 
@@ -123,8 +128,7 @@ function computeTheme(material, energy) {
 
 ### Клубное фото
 
-`https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80`  
-Минималистичный премиум-интерьер хай-тек клуба.
+`images/club-glass.png` — минималистичный премиум-интерьер с glassmorphism-атмосферой.
 
 ---
 
@@ -158,8 +162,7 @@ Primary-кнопки — outline с neon glow (как в прежней теме
 
 ### Клубное фото
 
-`https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80`  
-Игровой неоновый зал будущего.
+`images/club-cyber.png` — игровой неоновый зал будущего.
 
 ---
 
@@ -197,8 +200,7 @@ Primary-кнопки — outline с neon glow (как в прежней теме
 
 ### Клубное фото
 
-`https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80`  
-Роскошный VIP-зал с тёмным деревом.
+`images/club-royal.png` — роскошный VIP-зал с тёмным деревом и золотыми акцентами.
 
 ---
 
@@ -285,9 +287,10 @@ Primary-кнопки — outline с neon glow (как в прежней теме
 
 | Файл | Роль |
 |------|------|
-| `style.css` | 4 темы, тумблеры, glass/royal/cyber extras, responsive |
-| `index.html` | Разметка, header hub, `#club-image`, meta, JSON-LD |
-| `script.js` | Каталог, theme matrix, localStorage, club image swap |
+| `style.css` | 4 темы, приборная панель header, glass/royal/cyber extras, responsive |
+| `index.html` | Разметка, header hub, `#club-image`, SEO meta, JSON-LD |
+| `script.js` | Каталог, theme matrix, localStorage, локальная смена club image |
+| `images/club-*.png` | 4 локальных фото для секции «Клубные встречи» |
 | `DESIGN.md` | Эта документация |
 
 ---

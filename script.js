@@ -139,10 +139,10 @@ const ENERGY_STORAGE_KEY   = 'dm-toggle-energy';
 const SKELETON_COUNT     = 8;
 
 const CLUB_IMAGES = {
-  cozy:  'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=800&q=80',
-  glass: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-  cyber: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80',
-  royal: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80',
+  cozy:  'images/club-cozy.png',
+  glass: 'images/club-glass.png',
+  cyber: 'images/club-cyber.png',
+  royal: 'images/club-royal.png',
 };
 
 const CLUB_IMAGE_ALT = {
@@ -772,6 +772,7 @@ function applyThemeMatrix(material, energy) {
   const theme = computeTheme(material, energy);
 
   document.documentElement.dataset.theme = theme;
+  document.body.dataset.theme = theme;
   localStorage.setItem(MATERIAL_STORAGE_KEY, String(material));
   localStorage.setItem(ENERGY_STORAGE_KEY, String(energy));
 

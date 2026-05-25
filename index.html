@@ -37,45 +37,45 @@
 
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body data-theme="cozy">
 
   <a class="skip-link" href="#main-content">Перейти к содержимому</a>
 
   <header class="site-header">
     <nav class="nav container" aria-label="Основная навигация">
       <div class="nav__brand-hub" role="group" aria-label="Настройки оформления и логотип">
-        <label class="premium-toggle premium-toggle--material" for="toggle-material" title="Текстура: Аналоговый / Виртуальный">
-          <span class="premium-toggle__caption premium-toggle__caption--off">🪵 Уют</span>
+        <label class="premium-toggle premium-toggle--material" for="toggle-material" title="Текстура: Аналоговый / Глянцевый">
+          <span class="premium-toggle__caption premium-toggle__caption--off">🪵 Аналоговый</span>
           <input
             type="checkbox"
             id="toggle-material"
             class="premium-toggle__input"
-            aria-label="Текстура: выключено — аналоговый уют, включено — виртуальный глянец"
+            aria-label="Текстура: выключено — аналоговый, включено — глянцевый"
           />
           <span class="premium-toggle__track" aria-hidden="true">
             <span class="premium-toggle__icon premium-toggle__icon--off">🪵</span>
             <span class="premium-toggle__icon premium-toggle__icon--on">🌐</span>
             <span class="premium-toggle__thumb"></span>
           </span>
-          <span class="premium-toggle__caption premium-toggle__caption--on">🌐 Глянец</span>
+          <span class="premium-toggle__caption premium-toggle__caption--on">🌐 Глянцевый</span>
         </label>
 
         <a class="nav__logo" href="#top">Dice &amp; Meeples</a>
 
         <label class="premium-toggle premium-toggle--energy" for="toggle-energy" title="Атмосфера: Спокойный / Эффектный">
-          <span class="premium-toggle__caption premium-toggle__caption--off">☕ Спокойно</span>
+          <span class="premium-toggle__caption premium-toggle__caption--off">☕ Спокойный</span>
           <input
             type="checkbox"
             id="toggle-energy"
             class="premium-toggle__input"
-            aria-label="Атмосфера: выключено — спокойный режим, включено — эффектный вау"
+            aria-label="Атмосфера: выключено — спокойный, включено — эффектный"
           />
           <span class="premium-toggle__track" aria-hidden="true">
             <span class="premium-toggle__icon premium-toggle__icon--off">☕</span>
             <span class="premium-toggle__icon premium-toggle__icon--on">✨</span>
             <span class="premium-toggle__thumb"></span>
           </span>
-          <span class="premium-toggle__caption premium-toggle__caption--on">✨ Вау</span>
+          <span class="premium-toggle__caption premium-toggle__caption--on">✨ Эффектный</span>
         </label>
       </div>
 
@@ -275,10 +275,10 @@
                 id="club-image"
                 class="club__atmosphere-img"
                 data-theme="cozy"
-                src="https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                src="images/club-cozy.png"
                 alt="Уютный вечер за настольными играми при свечах в клубе Dice &amp; Meeples"
-                width="800"
-                height="450"
+                width="768"
+                height="1024"
                 loading="lazy"
                 decoding="async"
               />
